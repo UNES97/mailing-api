@@ -5,7 +5,7 @@ require('dotenv').config();
 const port = process.env.PORT || 3000;
 
 db.Connection.sync({force: false}).then(() => {
-    initRoles();
+    /* initRoles(); */
     console.log('Resynced DB');
 });
 
