@@ -1,5 +1,6 @@
 const dbConfig      = require("../config/db.config");
 const Sequelize     = require("sequelize");
+
 const Connection    = new Sequelize(
     dbConfig.DB,
     dbConfig.USER,
@@ -21,10 +22,34 @@ const db = {};
 db.Sequelize  = Sequelize;
 db.Connection = Connection;
 db.user         = require("../models/user.model")(Connection, Sequelize);
+db.role         = require("../models/role.model")(Connection, Sequelize);
 db.email        = require("../models/email.model")(Connection, Sequelize);
 db.attachment   = require("../models/attachment.model")(Connection, Sequelize);
 db.receiver     = require("../models/receiver.model")(Connection, Sequelize);
 
+db.user.belongsTo(db.role, {
+    foreignKey: { name:'role_id', allowNull: false },
+    as: "role",
+});
 
+db.user.belongsTo(db.user, {
+    foreignKey: "created_by",
+    as: "creator",
+});
+
+db.email.belongsTo(db.user, {
+    foreignKey: { name:'sender_id', allowNull: false },
+    as: "sender",
+});
+
+db.attachment.belongsTo(db.email, {
+    foreignKey: { name:'email_id', allowNull: false },
+    as: "email",
+});
+
+db.receiver.belongsTo(db.email, {
+    foreignKey: { name:'email_id', allowNull: false },
+    as: "email",
+});
 
 module.exports = db;
