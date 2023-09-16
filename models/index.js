@@ -28,27 +28,27 @@ db.attachment   = require("../models/attachment.model")(Connection, Sequelize);
 db.receiver     = require("../models/receiver.model")(Connection, Sequelize);
 
 db.user.belongsTo(db.role, {
-    foreignKey: { name:'role_id', allowNull: false },
+    foreignKey: { name:'roleId', allowNull: false },
     as: "role",
 });
 
 db.user.belongsTo(db.user, {
-    foreignKey: "created_by",
+    foreignKey: "createdBy",
     as: "creator",
 });
 
 db.email.belongsTo(db.user, {
-    foreignKey: { name:'sender_id', allowNull: false },
+    foreignKey: { name:'senderId', allowNull: false },
     as: "sender",
 });
 
 db.attachment.belongsTo(db.email, {
-    foreignKey: { name:'email_id', allowNull: false },
+    foreignKey: { name:'emailId', allowNull: false },
     as: "email",
 });
 
 db.receiver.belongsTo(db.email, {
-    foreignKey: { name:'email_id', allowNull: false },
+    foreignKey: { name:'emailId', allowNull: false },
     as: "email",
 });
 

@@ -39,7 +39,7 @@ exports.signin = async(req, res) => {
             var token = jwt.sign(
                 { 
                     id: user.id , 
-                    role: user.role_id,
+                    role: user.roleId,
                     fullname: user.fullname,
                     username: user.username,
                     email: user.email,

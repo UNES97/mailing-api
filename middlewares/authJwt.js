@@ -20,8 +20,8 @@ verifyToken = (req, res, next) => {
                     statusCode: 401,
                 });
             }
-            req.created_by = decoded.id;
-            req.role_id = decoded.role;
+            req.createdBy = decoded.id;
+            req.roleId = decoded.role;
             next();
         });
     } catch (err) {
@@ -34,7 +34,7 @@ verifyToken = (req, res, next) => {
 };
 
 isAdmin = (req, res, next) => {
-    if (req.role_id === 1) {
+    if (req.roleId === 1) {
         next();
         return;
     }

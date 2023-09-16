@@ -12,8 +12,8 @@ exports.addUser = async(req, res) => {
             username    : req.body.username,
             email       : req.body.email,
             active      : req.body.active,
-            role_id     : req.body.role_id,
-            created_by  : req.created_by,
+            roleId     : req.body.roleId,
+            createdBy  : req.createdBy,
             password    : bcrypt.hashSync(req.body.password , 8),
         })
         .then(user => {
