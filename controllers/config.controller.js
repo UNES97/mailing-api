@@ -7,7 +7,8 @@ const encl          = require("../helpers/encrypt.helper");
 exports.addConfig = async(req, res) => {
     try {
         await Config.create({
-            host    : req.body.host,
+            code        : req.body.code,
+            host        : req.body.host,
             username    : req.body.username,
             port        : req.body.port,
             active      : req.body.active,

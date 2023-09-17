@@ -1,5 +1,9 @@
 module.exports = (sequelize, Sequelize) => {
     const Config = sequelize.define("configs", {
+        code: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
         host: {
             type: Sequelize.STRING,
             allowNull: false,
