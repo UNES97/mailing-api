@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 require('dotenv').config();
-const secretKey = process.env.SECRET_KEY;
-const iv = crypto.randomBytes(16).toString('hex');
+const secretKey = crypto.scryptSync(process.env.MAIL_PWD_SECRET, 'salt', 32);
+const iv = crypto.randomBytes(16);
 
 module.exports = {
     encrypt : function(text) {
