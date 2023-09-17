@@ -50,6 +50,7 @@ exports.signin = async(req, res) => {
             });
             res.status(200);
             res.send({
+                statusCode: 200,
                 accessToken: token,
             });
         });

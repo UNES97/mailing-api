@@ -7,31 +7,31 @@ const Sequelize     = require("sequelize");
 
 exports.addUser = async(req, res) => {
     try {
-        User.create({
+        await User.create({
             fullname    : req.body.fullname,
             username    : req.body.username,
             email       : req.body.email,
             active      : req.body.active,
-            roleId     : req.body.roleId,
-            createdBy  : req.createdBy,
+            roleId      : req.body.roleId,
+            createdBy   : req.createdBy,
             password    : bcrypt.hashSync(req.body.password , 8),
         })
         .then(user => {
-            res.status(200);
+            res.code(200);
             res.send({ 
                 message: "User registered successfully !" ,
                 statusCode: 200,
             });
         })
         .catch(err => {
-            res.status(500);
+            res.code(500);
             res.send({ 
                 message: err.message ,
                 statusCode: 500,
             });
         });
     } catch (error) {
-        res.status(500);
+        res.code(500);
         res.send({ 
             message: error.message ,
             statusCode: 500,
@@ -46,14 +46,15 @@ exports.deleteUser = async(req, res) => {
         if(user){
             await user.destroy()
             .then(user => {
-                res.status(200);
+                res.code(200);
                 res.send({ 
                     message: 'User successfully deleted !',
                     statusCode: 200,
+                    userId: user.id
                 });
             })
             .catch(err => {
-                res.status(500);
+                res.code(500);
                 res.send({ 
                     message: err.message ,
                     statusCode: 500,
@@ -61,14 +62,14 @@ exports.deleteUser = async(req, res) => {
             });
         }
         else{
-            res.status(400);
+            res.code(400);
             res.send({
                 message : 'User not found !',
                 statusCode: 400,
             });
         }
     } catch (error) {
-        res.status(500);
+        res.code(500);
         res.send({ 
             message: error.message ,
             statusCode: 500,
@@ -88,14 +89,14 @@ exports.updateUser = async(req, res) => {
                 },
             })
             .then(user => {
-                res.status(200);
+                res.code(200);
                 res.send({
                     message: 'User updated successfully !',
                     statusCode: 200
                 });
             })
             .catch(err => {
-                res.status(500);
+                res.code(500);
                 res.send({ 
                     message: err.message ,
                     statusCode: 500,
@@ -103,14 +104,14 @@ exports.updateUser = async(req, res) => {
             });
         }
         else{
-            res.status(400);
+            res.code(400);
             res.send({
                 message : 'User not found !',
                 statusCode: 400,
             });
         }
     } catch (error) {
-        res.status(500);
+        res.code(500);
         res.send({ 
             message: error.message ,
             statusCode: 500,
@@ -204,21 +205,21 @@ exports.getUser = async(req, res) => {
             ],
         });
         if(user){
-            res.status(200);
+            res.code(200);
             res.send({
                 data: user,
                 statusCode: 200,
             });
         }
         else{
-            res.status(400);
+            res.code(400);
             res.send({
                 message: "User not found !",
                 statusCode: 200,
             });
         }
     } catch (error) {
-        res.status(500);
+        res.code(500);
         res.send({ 
             message: error.message ,
             statusCode: 500,
@@ -229,13 +230,13 @@ exports.getUser = async(req, res) => {
 exports.usersCount = async(req, res) => {
     try {
         var count = await User.count();
-        res.status(200);
+        res.code(200);
         res.send({ 
             data: count ,
             statusCode: 200,
         });
     } catch (error) {
-        res.status(500);
+        res.code(500);
         res.send({ 
             message: error.message ,
             statusCode: 500,
