@@ -82,7 +82,7 @@ exports.updateConfig = async(req, res) => {
         const id    = req.params.id;
         const config = await Config.findOne({ where: {id : id} });
         if(config){
-            if(req.body.password){req.body.password = bcrypt.hashSync(req.body.password, 8)}
+            if(req.body.password){req.body.password = encl.encrypt(req.body.password)}
             await config.update(req.body, {
                 where: {
                     id: id,
