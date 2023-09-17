@@ -1,11 +1,11 @@
 const db            = require("../models");
 const Config        = db.config;
-const bcrypt        = require("bcryptjs");
 const encl          = require("../helpers/encrypt.helper");
 
 
 exports.addConfig = async(req, res) => {
     try {
+        ecryptPwd = encl.encrypt(req.body.password);
         await Config.create({
             code        : req.body.code,
             host        : req.body.host,
@@ -15,7 +15,8 @@ exports.addConfig = async(req, res) => {
             encryption  : req.body.encryption,
             protocol    : req.body.protocol,
             charset     : req.body.charset,
-            password    : encl.encrypt(req.body.password),
+            password    : ecryptPwd.encryptedText,
+            iv          : ecryptPwd.iv,
         })
         .then(config => {
             res.code(200);
@@ -82,7 +83,12 @@ exports.updateConfig = async(req, res) => {
         const id    = req.params.id;
         const config = await Config.findOne({ where: {id : id} });
         if(config){
-            if(req.body.password){req.body.password = encl.encrypt(req.body.password)}
+            if(req.body.password)
+            {
+                ecryptPwd = encl.encrypt(req.body.password);
+                req.body.password = ecryptPwd.encryptedText;
+                req.body.iv = ecryptPwd.iv;
+            }
             await config.update(req.body, {
                 where: {
                     id: id,

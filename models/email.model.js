@@ -22,8 +22,13 @@ module.exports = (sequelize, Sequelize) => {
                 }
             },
         },
-        sent_at: {
-            type: Sequelize.DATE,
+        receivers: {
+            type: Sequelize.JSON,
+            allowNull: false,
+        },
+        attachments: {
+            type: Sequelize.JSON,
+            allowNull: false,
         },
         is_sent: {
             type: Sequelize.TINYINT(1),

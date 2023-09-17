@@ -24,8 +24,6 @@ db.Connection = Connection;
 db.user         = require("../models/user.model")(Connection, Sequelize);
 db.role         = require("../models/role.model")(Connection, Sequelize);
 db.email        = require("../models/email.model")(Connection, Sequelize);
-db.attachment   = require("../models/attachment.model")(Connection, Sequelize);
-db.receiver     = require("../models/receiver.model")(Connection, Sequelize);
 db.config       = require("../models/config.model")(Connection, Sequelize);
 
 db.user.belongsTo(db.role, {
@@ -41,16 +39,6 @@ db.user.belongsTo(db.user, {
 db.email.belongsTo(db.user, {
     foreignKey: { name:'senderId', allowNull: false },
     as: "sender",
-});
-
-db.attachment.belongsTo(db.email, {
-    foreignKey: { name:'emailId', allowNull: false },
-    as: "email",
-});
-
-db.receiver.belongsTo(db.email, {
-    foreignKey: { name:'emailId', allowNull: false },
-    as: "email",
 });
 
 module.exports = db;

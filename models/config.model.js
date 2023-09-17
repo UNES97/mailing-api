@@ -3,6 +3,10 @@ module.exports = (sequelize, Sequelize) => {
         code: {
             type: Sequelize.STRING,
             allowNull: false,
+            unique: {
+                args:true,
+                msg: 'Code already exists !'
+            }
         },
         host: {
             type: Sequelize.STRING,
@@ -13,6 +17,10 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         },
         password: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        iv: {
             type: Sequelize.STRING,
             allowNull: false,
         },
