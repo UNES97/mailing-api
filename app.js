@@ -23,8 +23,10 @@ function initRoles() {
     });
 }
 
+require('./routes/email.routes')(fastify);
 require('./routes/auth.routes')(fastify);
 require('./routes/user.routes')(fastify);
+require('./routes/config.routes')(fastify);
 
 fastify.get('/', function handler (request, reply) {
     reply.send({ message : 'EmailSender API by YATO SAMA' });

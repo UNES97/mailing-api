@@ -26,6 +26,7 @@ db.role         = require("../models/role.model")(Connection, Sequelize);
 db.email        = require("../models/email.model")(Connection, Sequelize);
 db.attachment   = require("../models/attachment.model")(Connection, Sequelize);
 db.receiver     = require("../models/receiver.model")(Connection, Sequelize);
+db.config       = require("../models/config.model")(Connection, Sequelize);
 
 db.user.belongsTo(db.role, {
     foreignKey: { name:'roleId', allowNull: false },
