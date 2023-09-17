@@ -21,6 +21,7 @@ exports.addUser = async(req, res) => {
             res.send({ 
                 message: "User registered successfully !" ,
                 statusCode: 200,
+                userId: user.id
             });
         })
         .catch(err => {
@@ -92,7 +93,8 @@ exports.updateUser = async(req, res) => {
                 res.code(200);
                 res.send({
                     message: 'User updated successfully !',
-                    statusCode: 200
+                    statusCode: 200,
+                    userId: user.id
                 });
             })
             .catch(err => {
