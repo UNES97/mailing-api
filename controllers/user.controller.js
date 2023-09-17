@@ -1,9 +1,7 @@
 const db            = require("../models");
 const User          = db.user;
-const Role          = db.role;
 const Op            = db.Sequelize.Op;
 const bcrypt        = require("bcryptjs");
-const Sequelize     = require("sequelize");
 
 exports.addUser = async(req, res) => {
     try {

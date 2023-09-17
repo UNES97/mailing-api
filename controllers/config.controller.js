@@ -1,8 +1,8 @@
 const db            = require("../models");
 const Config        = db.config;
-const Op            = db.Sequelize.Op;
 const bcrypt        = require("bcryptjs");
-const Sequelize     = require("sequelize");
+const encl          = require("../helpers/encrypt.helper");
+
 
 exports.addConfig = async(req, res) => {
     try {
@@ -14,7 +14,7 @@ exports.addConfig = async(req, res) => {
             encryption  : req.body.encryption,
             protocol    : req.body.protocol,
             charset     : req.body.charset,
-            password    : bcrypt.hashSync(req.body.password , 8),
+            password    : encl.encrypt(req.body.password),
         })
         .then(config => {
             res.code(200);
